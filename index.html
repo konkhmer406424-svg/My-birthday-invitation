@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Birthday Invitation · អញ្ជើញចូលរួមខួបកំណើត</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Moul&family=Noto+Sans+Khmer:wght@400;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f0ff; --card:#ffffff; --ink:#26184d; --muted:#6a5f8c; --line:#e1d8f5;
+  --pink:#e03a7c; --sun:#ffbf2f; --sky:#3aa7e0; --mint:#37c28f;
+  --btn-ink:#ffffff;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#150f33; --card:#1f1847; --ink:#f4efff; --muted:#b4a8dc; --line:#3a2f6b; --btn-ink:#26184d; }
+}
+:root[data-theme="dark"]{ --bg:#150f33; --card:#1f1847; --ink:#f4efff; --muted:#b4a8dc; --line:#3a2f6b; --btn-ink:#26184d; }
+html{ height:100%; scroll-padding-top:env(safe-area-inset-top,0px); color-scheme:light dark; }
+*{ box-sizing:border-box; }
+body{ margin:0; min-height:100%; background:var(--bg); color:var(--ink);
+  font-family:'Noto Sans Khmer','Khmer OS',system-ui,sans-serif; line-height:1.7;
+  display:flex; justify-content:center; padding:20px 14px 40px; overflow-x:hidden; }
+.en{ font-family:'Fraunces',Georgia,'Times New Roman',serif; }
+main{ width:100%; max-width:440px; position:relative; z-index:1; text-align:center; }
+
+.hero{ padding:8px 0 4px; }
+.balloons{ width:200px; max-width:60%; height:auto; display:block; margin:0 auto 4px; }
+.invite-km{ margin:0; font-size:15px; color:var(--muted); }
+.invite-en{ margin:0 0 10px; font-size:17px; font-style:italic; color:var(--muted); }
+h1{ margin:0; font-family:'Moul','Noto Sans Khmer',serif; font-weight:400; font-size:clamp(34px,11vw,48px); line-height:1.35; color:var(--pink); }
+.name-en{ font-size:clamp(30px,9vw,40px); font-weight:600; margin:2px 0 0; color:var(--ink); }
+h1.latin{ font-family:'Fraunces',Georgia,'Times New Roman',serif; font-weight:600; font-size:clamp(40px,13vw,58px); line-height:1.15; padding:2px 6px 8px;
+  color:transparent; background:linear-gradient(90deg,#e03a7c,#8a4de0,#3aa7e0,#e03a7c); background-size:220% 100%; -webkit-background-clip:text; background-clip:text;
+  filter:drop-shadow(0 3px 0 rgba(38,24,77,.28)) drop-shadow(0 10px 14px rgba(224,58,124,.32)); animation:sheen 7s linear infinite; }
+@keyframes sheen{ to{ background-position:-220% 0; } }
+.age{ margin:8px 0 2px; display:flex; flex-direction:column; align-items:center; }
+.age-top,.age-bot{ font-size:16px; font-weight:600; color:var(--ink); line-height:1.4; }
+.age-top .en,.age-bot .en{ display:block; font-size:14px; font-weight:400; font-style:italic; color:var(--muted); }
+.num{ display:flex; gap:4px; justify-content:center; padding:6px 0 18px; }
+.num span{ font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:clamp(96px,30vw,140px); line-height:.95; color:var(--c);
+  -webkit-text-stroke:5px #fff; paint-order:stroke fill;
+  text-shadow:0 3px 0 var(--d),0 6px 0 var(--d),0 9px 0 var(--d),0 12px 0 var(--d),0 16px 22px rgba(20,10,60,.4);
+  display:inline-block; animation:pop .8s cubic-bezier(.2,1.7,.4,1) both; animation-delay:calc(var(--i) * .14s + .2s); }
+@keyframes pop{ from{ transform:scale(.2) rotate(-14deg); opacity:0; } to{ transform:none; opacity:1; } }
+@media (prefers-reduced-motion: reduce){ h1.latin{ animation:none; } .num span{ animation:none; } }
+.cake{ width:230px; max-width:70%; height:auto; display:block; margin:20px auto 0; }
+.flame{ transform-box:fill-box; transform-origin:50% 100%; animation:flick 1.4s ease-in-out infinite; }
+.flame:nth-of-type(2){ animation-delay:.3s; } .flame:nth-of-type(3){ animation-delay:.7s; }
+@keyframes flick{ 0%,100%{ transform:scale(1,1); } 50%{ transform:scale(.86,1.14); } }
+@media (prefers-reduced-motion: reduce){ .flame{ animation:none; } }
+.sub{ margin:10px 0 0; font-size:15px; }
+.sub .en{ display:block; color:var(--muted); font-size:15px; }
+
+.card{ background:var(--card); border:1.5px solid var(--line); border-radius:22px; padding:6px 20px; margin-top:22px; text-align:left; }
+.row{ display:flex; gap:14px; padding:14px 0; align-items:flex-start; }
+.row + .row{ border-top:1.5px dashed var(--line); }
+.ico{ flex:none; width:42px; height:42px; border-radius:50%; display:grid; place-items:center; font-size:20px; }
+.r1 .ico{ background:color-mix(in srgb,var(--sun) 35%,transparent); }
+.r2 .ico{ background:color-mix(in srgb,var(--sky) 30%,transparent); }
+.r3 .ico{ background:color-mix(in srgb,var(--mint) 30%,transparent); }
+.row b{ display:block; font-size:16px; font-weight:600; }
+.row span{ display:block; color:var(--muted); font-size:14px; }
+
+.count{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:22px; }
+.count div{ background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:10px 2px 8px; }
+.count strong{ display:block; font-family:'Fraunces',Georgia,serif; font-size:28px; line-height:1.1; color:var(--ink); }
+.count small{ font-size:12px; color:var(--muted); }
+#today{ display:none; margin-top:22px; font-size:18px; font-weight:600; color:var(--pink); }
+
+.actions{ display:flex; gap:10px; margin-top:22px; }
+.btn{ flex:1; display:block; text-align:center; text-decoration:none; padding:13px 8px; border-radius:14px; font:600 15px/1.35 'Noto Sans Khmer',system-ui,sans-serif; border:2px solid var(--ink); color:var(--ink); }
+.btn.main{ background:var(--pink); border-color:var(--pink); color:#fff; }
+.btn:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
+.btn small{ display:block; font-weight:400; font-size:12px; opacity:.85; }
+.greet{ margin:0 0 6px; font-weight:600; font-size:17px; color:var(--ink); }
+.greet:empty{ display:none; }
+.greet .en{ display:block; font-weight:400; font-size:15px; color:var(--muted); }
+.rsvp{ text-align:left; padding:16px 20px 18px; }
+.rsvp .rt{ display:block; font-size:17px; margin-bottom:10px; }
+.rsvp label{ display:block; font-size:14px; color:var(--muted); margin-top:10px; }
+.rsvp label[hidden]{ display:none; }
+.rsvp input,.rsvp select{ display:block; width:100%; margin-top:4px; padding:11px 12px; font:16px 'Noto Sans Khmer',system-ui,sans-serif; color:var(--ink); background:var(--bg); border:1.5px solid var(--line); border-radius:12px; }
+.rsvp input:focus-visible,.rsvp select:focus-visible{ outline:3px solid var(--sun); outline-offset:1px; }
+[hidden]{ display:none !important; }
+.gallery{ margin-top:30px; }
+.gallery h2{ margin:0 0 14px; font-size:17px; font-weight:600; text-align:center; }
+.gallery h2 .en{ display:block; font-size:15px; font-weight:400; color:var(--muted); }
+.grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px 16px; padding:8px 6px 4px; }
+.pol{ position:relative; display:block; margin:0; padding:8px 8px 0; border:0; border-radius:4px; background:#fffdf8; color:#4a3a6a;
+  box-shadow:0 8px 18px rgba(20,10,60,.25), 0 1px 3px rgba(20,10,60,.2); transform:rotate(var(--r,0deg)); cursor:zoom-in; font:inherit; }
+.pol:first-child{ grid-column:1 / -1; }
+.pol:nth-child(1){ --r:-1deg; } .pol:nth-child(2){ --r:2deg; } .pol:nth-child(3){ --r:-2deg; } .pol:nth-child(4){ --r:1.5deg; } .pol:nth-child(5){ --r:-1.5deg; }
+.pol::before{ content:''; position:absolute; top:-10px; left:50%; width:68px; height:22px; margin-left:-34px; background:color-mix(in srgb,var(--sun) 60%,#fff); opacity:.88; transform:rotate(-3deg); box-shadow:0 1px 2px rgba(0,0,0,.15); }
+.pol .ph{ display:block; aspect-ratio:1/1; overflow:hidden; background:#ece6fa; }
+.pol:first-child .ph{ aspect-ratio:4/3; }
+.pol img{ width:100%; height:100%; object-fit:cover; display:block; }
+.pol .cap{ display:block; min-height:36px; padding:9px 2px 11px; font-size:13px; line-height:1.4; text-align:center; }
+.pol.empty{ cursor:default; }
+.pol.empty .ph{ display:grid; place-items:center; font-size:34px; opacity:.55; }
+.pol:focus-visible{ outline:3px solid var(--sun); outline-offset:3px; }
+#lb{ position:fixed; inset:0; z-index:50; background:rgba(12,8,30,.9); display:flex; align-items:center; justify-content:center; padding:20px; cursor:zoom-out; }
+#lb img{ max-width:92vw; max-height:84vh; border:10px solid #fffdf8; border-radius:4px; box-shadow:0 10px 40px rgba(0,0,0,.5); }
+#lb button{ position:absolute; top:calc(14px + env(safe-area-inset-top,0px)); right:16px; font-size:26px; line-height:1; color:#fff; background:none; border:0; cursor:pointer; }
+.rsvp .btn{ width:100%; margin-top:12px; }
+.thanks-box{ margin:26px 4px 0; font-size:14px; line-height:1.95; color:var(--muted); text-align:center; }
+.thanks-box .en{ display:block; margin-top:10px; font-size:14px; line-height:1.75; }
+.btn:disabled{ opacity:.55; }
+#rmsg{ margin:12px 0 0; font-size:14px; min-height:1.5em; }
+#rmsg.ok{ color:var(--mint); font-weight:600; } #rmsg.err{ color:var(--pink); }
+.thanks{ margin:26px 0 0; color:var(--muted); font-size:14px; }
+.thanks .en{ display:block; }
+
+.confetti{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+.confetti i{ position:absolute; top:-20px; width:9px; height:14px; border-radius:2px; opacity:0; animation:fall linear 1 forwards; }
+@keyframes fall{ 0%{ opacity:1; transform:translateY(0) rotate(0); } 100%{ opacity:0; transform:translateY(105vh) rotate(540deg); } }
+@media (prefers-reduced-motion: reduce){ .confetti{ display:none; } }
+</style>
+</head>
+<body>
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+<main>
+  <section class="hero">
+    <svg class="balloons" viewBox="0 0 200 150" role="img" aria-label="Balloons">
+      <g stroke="var(--muted)" stroke-width="1.5" fill="none"><path d="M60 62 Q70 110 100 146"/><path d="M100 50 L100 146"/><path d="M142 62 Q130 110 100 146"/></g>
+      <ellipse cx="60" cy="40" rx="26" ry="31" fill="var(--sun)"/>
+      <ellipse cx="100" cy="30" rx="28" ry="34" fill="var(--pink)"/>
+      <ellipse cx="142" cy="40" rx="26" ry="31" fill="var(--sky)"/>
+      <ellipse cx="92" cy="18" rx="6" ry="9" fill="#fff" opacity=".35"/>
+    </svg>
+    <p class="greet" id="greet"></p>
+    <p class="invite-km">សូមអញ្ជើញចូលរួមពិធីខួបកំណើតរបស់</p>
+    <p class="invite-en en">You’re invited to the birthday of</p>
+    <h1 class="latin">Phom Bunlai</h1>
+    <div class="age" id="age" hidden>
+      <span class="age-top">ខួបកំណើតអាយុ<span class="en">Turning</span></span>
+      <span class="num" id="num" aria-label="Age"></span>
+      <span class="age-bot">ឆ្នាំ<span class="en">years old</span></span>
+    </div>
+    <p class="sub">មកជប់លៀង ញ៉ាំ និងអបអរសាទរជាមួយគ្នា!<span class="en">Come eat, laugh and celebrate with me!</span></p>
+  </section>
+
+  <svg class="cake" viewBox="0 0 240 200" role="img" aria-label="Birthday cake with three candles">
+    <ellipse cx="120" cy="187" rx="106" ry="10" fill="var(--line)"/>
+    <rect x="26" y="126" width="188" height="56" rx="12" fill="var(--pink)"/>
+    <path d="M26 140 q11.75 16 23.5 0 q11.75 16 23.5 0 q11.75 16 23.5 0 q11.75 16 23.5 0 q11.75 16 23.5 0 q11.75 16 23.5 0 q11.75 16 23.5 0 q11.75 16 23.5 0 V126 H26Z" fill="#fff"/>
+    <rect x="58" y="88" width="124" height="42" rx="10" fill="var(--sun)"/>
+    <path d="M58 100 q10.33 14 20.67 0 q10.33 14 20.67 0 q10.33 14 20.67 0 q10.33 14 20.67 0 q10.33 14 20.67 0 q10.33 14 20.67 0 V88 H58Z" fill="#fff"/>
+    <rect x="84" y="58" width="72" height="34" rx="9" fill="var(--sky)"/>
+    <path d="M84 69 q9 12 18 0 q9 12 18 0 q9 12 18 0 q9 12 18 0 V58 H84Z" fill="#fff"/>
+    <rect x="101" y="34" width="6" height="25" rx="2" fill="var(--pink)"/>
+    <rect x="117" y="34" width="6" height="25" rx="2" fill="var(--mint)"/>
+    <rect x="133" y="34" width="6" height="25" rx="2" fill="var(--sun)"/>
+    <ellipse class="flame" cx="104" cy="27" rx="4" ry="7" fill="#ff9f1c"/>
+    <ellipse class="flame" cx="120" cy="27" rx="4" ry="7" fill="#ff9f1c"/>
+    <ellipse class="flame" cx="136" cy="27" rx="4" ry="7" fill="#ff9f1c"/>
+    <g fill="#fff" opacity=".9"><rect x="46" y="158" width="9" height="3.5" rx="1.7" transform="rotate(-25 50 160)"/><rect x="80" y="166" width="9" height="3.5" rx="1.7" transform="rotate(20 84 168)"/><rect x="118" y="155" width="9" height="3.5" rx="1.7" transform="rotate(-10 122 157)"/><rect x="152" y="166" width="9" height="3.5" rx="1.7" transform="rotate(30 156 168)"/><rect x="186" y="157" width="9" height="3.5" rx="1.7" transform="rotate(-30 190 159)"/></g>
+  </svg>
+
+  <section class="card" aria-label="Details">
+    <div class="row r1"><div class="ico">📅</div><div><b>ថ្ងៃអង្គារ ទី ០៣ វិច្ឆិកា ២០២៦</b><span class="en">Tuesday, 3 November 2026</span></div></div>
+    <div class="row r2"><div class="ico">🕕</div><div><b>ម៉ោង ៦ ល្ងាច</b><span class="en">6:00 PM</span></div></div>
+    <div class="row r3"><div class="ico">📍</div><div><b>Prakit, ភ្នំពេញ</b><span class="en">Prakit, Phnom Penh</span></div></div>
+  </section>
+
+  <section class="count" id="count" aria-label="Countdown">
+    <div><strong id="d">0</strong><small>ថ្ងៃ / days</small></div>
+    <div><strong id="h">0</strong><small>ម៉ោង / hours</small></div>
+    <div><strong id="m">0</strong><small>នាទី / min</small></div>
+    <div><strong id="s">0</strong><small>វិនាទី / sec</small></div>
+  </section>
+  <p id="today">🎉 ថ្ងៃនេះហើយ! / It’s today!</p>
+
+  <section class="gallery" aria-label="Photo gallery">
+    <h2>កម្រងរូបភាព<span class="en">Memories</span></h2>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="card rsvp" id="rsvp" aria-label="RSVP">
+    <b class="rt">បញ្ជាក់ការចូលរួម <span class="en">RSVP</span></b>
+    <button class="btn main" id="yes" type="button">✅ ខ្ញុំមកបាន<small>I’ll be there</small></button>
+    <div id="nameBox" hidden>
+      <label for="gname">ឈ្មោះរបស់អ្នក / Your name
+        <input id="gname" maxlength="120" autocomplete="name" placeholder="ឧ. សុខា និងគ្រួសារ / e.g. Sokha and family">
+      </label>
+      <button class="btn main" id="send" type="button">ផ្ញើ<small>Send</small></button>
+    </div>
+    <p id="rmsg" role="status"></p>
+  </section>
+  <div class="actions">
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Prakit,+Phnom+Penh" target="_blank" rel="noopener">មើលផែនទី<small>Open map</small></a>
+  </div>
+
+  <p class="thanks-box">ក្នុងនាមខ្ញុំ និងក្រុមមេឌៀរនៃប្រាកកេត ខ្ញុំសូមគោរពថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅ ចំពោះវត្តមាន និងពរជ័យដ៏មានតម្លៃរបស់លោក លោកស្រី អ្នកនាង កញ្ញា ក្នុងពិធីខួបកំណើតនេះ។ ខ្ញុំសូមអភ័យទោស ប្រសិនបើមិនបានអញ្ជើញដោយផ្ទាល់ មានការខកខានក្នុងការទទួលរាក់ទាក់ ឬមានកំហុសឆ្គងក្នុងការសរសេរនាម និងងារ។ សូមមេត្តាទទួលនូវការគោរពដ៏ខ្ពង់ខ្ពស់ពីខ្ញុំ។
+    <span class="en">On behalf of myself and the Prakit Media team, I would like to express my deepest gratitude for your presence and your valued blessings at this birthday celebration. Please forgive me if I did not invite you in person, if my welcome fell short, or if any name or title is misspelled. Please accept my highest respect.</span></p>
+</main>
+<div id="lb" hidden><button type="button" aria-label="Close">✕</button><img alt=""></div>
+<script>
+(function(){
+  var target = new Date('2026-11-03T18:00:00+07:00').getTime();
+  var el = {d:document.getElementById('d'), h:document.getElementById('h'), m:document.getElementById('m'), s:document.getElementById('s')};
+  function tick(){
+    var left = target - Date.now();
+    if(left <= 0){ document.getElementById('count').style.display='none'; document.getElementById('today').style.display='block'; return; }
+    var S = Math.floor(left/1000);
+    el.d.textContent = Math.floor(S/86400);
+    el.h.textContent = Math.floor(S%86400/3600);
+    el.m.textContent = Math.floor(S%3600/60);
+    el.s.textContent = S%60;
+  }
+  tick(); setInterval(tick, 1000);
+  // ---- Age: change this number (set 0 to hide the age block) ----
+  var AGE = 30;   // born 3 Nov 1996 -> turns 30 on 3 Nov 2026
+  if(AGE > 0){
+    var cols = ['#e03a7c','#ffbf2f','#3aa7e0','#37c28f'], numEl = document.getElementById('num');
+    String(AGE).split('').forEach(function(ch, i){
+      var sp = document.createElement('span'); sp.textContent = ch;
+      sp.style.setProperty('--c', cols[i % 4]); sp.style.setProperty('--i', i);
+      sp.style.setProperty('--d', 'color-mix(in srgb,' + cols[i % 4] + ' 55%,#000)');
+      numEl.appendChild(sp);
+    });
+    document.getElementById('age').hidden = false;
+  }
+
+  // ---- Photo gallery: put your photos in a "photos" folder next to index.html, named 1 to 5 (any of jpg, jpeg, png, webp) ----
+  var PHOTOS = [ {n:'1', cap:''}, {n:'2', cap:''}, {n:'3', cap:''}, {n:'4', cap:''}, {n:'5', cap:''} ];   // cap = optional caption under the photo
+  var EXT = ['jpg','jpeg','png','webp','JPG','JPEG','PNG','WEBP'];
+  var lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  function closeLb(){ lb.hidden = true; lbImg.removeAttribute('src'); }
+  lb.addEventListener('click', closeLb);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+  PHOTOS.forEach(function(p, idx){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'pol';
+    var ph = document.createElement('span'); ph.className = 'ph';
+    var img = document.createElement('img'); img.alt = 'Photo ' + p.n; img.loading = 'lazy'; img.decoding = 'async';
+    var cap = document.createElement('span'); cap.className = 'cap'; cap.textContent = p.cap || '';
+    var k = 0;
+    img.onerror = function(){
+      k++;
+      if(k < EXT.length){ img.src = 'photos/' + p.n + '.' + EXT[k]; }
+      else { b.classList.add('empty'); ph.textContent = '📷'; b.setAttribute('aria-label', 'Photo ' + p.n + ' (not added yet)'); }
+    };
+    img.src = 'photos/' + p.n + '.' + EXT[0];
+    b.addEventListener('click', function(){ if(b.classList.contains('empty')) return; lbImg.src = img.currentSrc || img.src; lb.hidden = false; });
+    ph.appendChild(img); b.appendChild(ph); b.appendChild(cap);
+    document.getElementById('grid').appendChild(b);
+  });
+
+  // ---- Personal link + RSVP (Google Apps Script) ----
+  var RSVP_URL = 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+  var $ = function(id){ return document.getElementById(id); };
+  var to = (new URLSearchParams(location.search).get('to') || '').trim().slice(0,60);
+  if(to){
+    var g = $('greet'); g.appendChild(document.createTextNode('សួស្តី ' + to + ' 🎈'));
+    var ge = document.createElement('span'); ge.className = 'en'; ge.textContent = 'Dear ' + to + ','; g.appendChild(ge);
+    $('gname').value = to;
+  }
+  function say(t, cls){ var m = $('rmsg'); m.textContent = t; m.className = cls || ''; }
+  function call(params){
+    if(RSVP_URL.indexOf('PASTE_') === 0) return Promise.reject(new Error('not_set'));
+    var q = Object.keys(params).map(function(k){ return k + '=' + encodeURIComponent(params[k]); }).join('&');
+    return fetch(RSVP_URL + '?' + q).then(function(r){ return r.json(); });
+  }
+  // Tapping "I'll be there" opens the name box (no guest-count limit: the guest can write everyone who is coming).
+  $('yes').addEventListener('click', function(){ $('yes').hidden = true; $('nameBox').hidden = false; say(''); $('gname').focus(); });
+  $('send').addEventListener('click', function(){
+    var name = $('gname').value.trim().slice(0,120);
+    if(!name){ say('សូមវាយឈ្មោះរបស់អ្នក / Please enter your name', 'err'); $('gname').focus(); return; }
+    $('send').disabled = true; say('កំពុងផ្ញើ… / Sending…');
+    call({action:'rsvp', name:name, to:to}).then(function(d){
+      if(!d.success) throw new Error(d.reason || 'failed');
+      $('nameBox').hidden = true;
+      say('អរគុណ! យើងរង់ចាំអ្នក 🎉 / Thank you! See you there 🎉', 'ok');
+    }).catch(function(){ say('មិនអាចផ្ញើបានទេ សូមព្យាយាមម្តងទៀត / Could not send, please try again', 'err'); })
+      .then(function(){ $('send').disabled = false; });
+  });
+  if(to){   // personal link: show an earlier reply
+    call({action:'status', name:to}).then(function(d){
+      if(d && d.found) say('✅ អ្នកបានឆ្លើយថាមកបានរួចហើយ / You have already replied: coming', 'ok');
+    }).catch(function(){});
+  }
+  // one burst of confetti on load
+  var box = document.getElementById('confetti'), colors = ['#e03a7c','#ffbf2f','#3aa7e0','#37c28f'];
+  for(var i=0;i<34;i++){
+    var c = document.createElement('i');
+    c.style.left = Math.random()*100 + '%';
+    c.style.background = colors[i%4];
+    c.style.animationDuration = (3.2 + Math.random()*2.6) + 's';
+    c.style.animationDelay = (Math.random()*1.2) + 's';
+    box.appendChild(c);
+  }
+})();
+</script>
+</body>
+</html>
