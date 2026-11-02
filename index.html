@@ -171,6 +171,10 @@ body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area
 .mapbox{ margin-top:22px; }
 .mapbox iframe{ display:block; width:100%; height:300px; border:1.5px solid color-mix(in srgb,var(--line) 70%,transparent); border-radius:22px; background:#e9e4f7; box-shadow:0 6px 18px rgba(38,24,77,.15); }
 .mapbox .btn{ width:100%; margin-top:10px; }
+
+#bg.has-img::before,#bg.has-img::after{ opacity:0; }
+#bg .img{ background-repeat:no-repeat; }
+@media (min-aspect-ratio:1/1){ #bg .img{ background-size:auto 100%; } }
 </style>
 </head>
 <body>
@@ -388,8 +392,8 @@ body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area
   // ---- Background photo (blurred): put one picture in the "photos" folder named bg.jpg (or bg.jpeg / bg.png / bg.webp) ----
   // If no picture is found, soft blurred colour shapes are shown instead.
   var BG_NAME = 'bg';         // file name without extension
-  var BG_BLUR = 14;           // px, bigger = blurrier
-  var BG_VEIL = 0.55;         // 0 to 1, bigger = fainter picture (easier to read text)
+  var BG_BLUR = 0;            // px, bigger = blurrier
+  var BG_VEIL = 0.1;          // 0 to 1, bigger = fainter picture (easier to read text)
   var bgImg = document.getElementById('bgImg');
   bgImg.style.filter = 'blur(' + BG_BLUR + 'px) saturate(1.1)';
   bgImg.nextElementSibling.style.opacity = BG_VEIL;
@@ -397,7 +401,7 @@ body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area
     var exts = ['jpg','jpeg','png','webp','JPG','JPEG','PNG','WEBP'];
     if(k >= exts.length) return;
     var src = 'photos/' + BG_NAME + '.' + exts[k], im = new Image();
-    im.onload = function(){ bgImg.style.backgroundImage = 'url("' + src + '")'; bgImg.classList.add('show'); };
+    im.onload = function(){ bgImg.style.backgroundImage = 'url("' + src + '")'; bgImg.classList.add('show'); document.getElementById('bg').classList.add('has-img'); };
     im.onerror = function(){ tryBg(k + 1); };
     im.src = src;
   })(0);
