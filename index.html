@@ -76,6 +76,15 @@ h1.latin{ font-family:'Fraunces',Georgia,'Times New Roman',serif; font-weight:60
 .btn.main{ background:var(--pink); border-color:var(--pink); color:#fff; }
 .btn:focus-visible{ outline:3px solid var(--sun); outline-offset:2px; }
 .btn small{ display:block; font-weight:400; font-size:12px; opacity:.85; }
+.pin{ position:sticky; top:calc(env(safe-area-inset-top,0px) + 8px); z-index:20; margin:0 0 14px; display:flex; align-items:center; gap:12px; padding:14px 16px 10px 12px; text-align:left;
+  background:color-mix(in srgb,var(--card) 90%,transparent); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  border:1.5px solid var(--line); border-radius:18px; box-shadow:0 8px 22px rgba(20,10,60,.2); overflow:hidden; }
+.pin::before{ content:''; position:absolute; left:0; right:0; top:0; height:5px; background:linear-gradient(90deg,var(--pink) 0 25%,var(--sun) 25% 50%,var(--sky) 50% 75%,var(--mint) 75% 100%); }
+.pin-ico{ flex:none; width:44px; height:44px; border-radius:50%; display:grid; place-items:center; font-size:22px;
+  background:conic-gradient(var(--pink),var(--sun),var(--mint),var(--sky),var(--pink)); box-shadow:inset 0 0 0 4px var(--card); }
+.pin-km{ display:block; font-weight:600; font-size:16px; line-height:1.35; color:var(--ink); overflow-wrap:anywhere; }
+.pin-en{ display:block; font-size:13.5px; font-style:italic; line-height:1.4; color:var(--muted); overflow-wrap:anywhere; }
+body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area-inset-top,0px); background:var(--bg); z-index:19; }
 .greet{ margin:0 0 6px; font-weight:600; font-size:17px; color:var(--ink); }
 .greet:empty{ display:none; }
 .greet .en{ display:block; font-weight:400; font-size:15px; color:var(--muted); }
@@ -123,6 +132,10 @@ h1.latin{ font-family:'Fraunces',Georgia,'Times New Roman',serif; font-weight:60
 <body>
 <div class="confetti" id="confetti" aria-hidden="true"></div>
 <main>
+  <div class="pin" id="pin" role="note" hidden>
+    <span class="pin-ico" aria-hidden="true">🎈</span>
+    <span><span class="pin-km" id="pinKm"></span><span class="pin-en en" id="pinEn"></span></span>
+  </div>
   <section class="hero">
     <svg class="balloons" viewBox="0 0 200 150" role="img" aria-label="Balloons">
       <g stroke="var(--muted)" stroke-width="1.5" fill="none"><path d="M60 62 Q70 110 100 146"/><path d="M100 50 L100 146"/><path d="M142 62 Q130 110 100 146"/></g>
@@ -131,7 +144,6 @@ h1.latin{ font-family:'Fraunces',Georgia,'Times New Roman',serif; font-weight:60
       <ellipse cx="142" cy="40" rx="26" ry="31" fill="var(--sky)"/>
       <ellipse cx="92" cy="18" rx="6" ry="9" fill="#fff" opacity=".35"/>
     </svg>
-    <p class="greet" id="greet"></p>
     <p class="invite-km">សូមអញ្ជើញចូលរួមពិធីខួបកំណើតរបស់</p>
     <p class="invite-en en">You’re invited to the birthday of</p>
     <h1 class="latin">Phom Bunlai</h1>
@@ -250,12 +262,13 @@ h1.latin{ font-family:'Fraunces',Georgia,'Times New Roman',serif; font-weight:60
   });
 
   // ---- Personal link + RSVP (Google Apps Script) ----
-  var RSVP_URL = 'https://script.google.com/macros/s/AKfycbwV0bjmu-wvRXrMcMkchI2XCy9qmMNJRT5Z0WRJFdbpR8WTaX2XKKcrJupA0ce792oP/exec';
+  var RSVP_URL = 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE';
   var $ = function(id){ return document.getElementById(id); };
   var to = (new URLSearchParams(location.search).get('to') || '').trim().slice(0,60);
   if(to){
-    var g = $('greet'); g.appendChild(document.createTextNode('សួស្តី ' + to + ' 🎈'));
-    var ge = document.createElement('span'); ge.className = 'en'; ge.textContent = 'Dear ' + to + ','; g.appendChild(ge);
+    $('pinKm').textContent = 'សួស្តី ' + to;
+    $('pinEn').textContent = 'Dear ' + to + ',';
+    $('pin').hidden = false;
     $('gname').value = to;
   }
   function say(t, cls){ var m = $('rmsg'); m.textContent = t; m.className = cls || ''; }
