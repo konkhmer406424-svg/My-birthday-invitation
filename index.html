@@ -127,9 +127,54 @@ body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area
 .confetti i{ position:absolute; top:-20px; width:9px; height:14px; border-radius:2px; opacity:0; animation:fall linear 1 forwards; }
 @keyframes fall{ 0%{ opacity:1; transform:translateY(0) rotate(0); } 100%{ opacity:0; transform:translateY(105vh) rotate(540deg); } }
 @media (prefers-reduced-motion: reduce){ .confetti{ display:none; } }
+
+/* ---- Music button ---- */
+#music{ position:fixed; right:14px; bottom:calc(14px + env(safe-area-inset-bottom,0px)); z-index:50; width:48px; height:48px; border-radius:50%;
+  border:2px solid var(--line); background:var(--card); color:var(--pink); font-size:22px; line-height:1; cursor:pointer; padding:0;
+  box-shadow:0 6px 16px rgba(38,24,77,.25); display:flex; align-items:center; justify-content:center; }
+#music.on{ background:var(--pink); color:#fff; border-color:var(--pink); animation:mpulse 1.8s ease-in-out infinite; }
+@keyframes mpulse{ 50%{ box-shadow:0 0 0 8px rgba(224,58,124,.18); } }
+
+/* ---- Blurred background ---- */
+#bg{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; background:var(--bg); }
+#bg::before,#bg::after{ content:""; position:absolute; width:70vmax; height:70vmax; border-radius:50%; filter:blur(70px); opacity:.45; }
+#bg::before{ background:var(--pink); top:-25vmax; left:-20vmax; }
+#bg::after{ background:var(--sky); bottom:-25vmax; right:-20vmax; }
+#bg .img{ position:absolute; inset:-30px; background-size:cover; background-position:center; filter:blur(14px) saturate(1.1); opacity:0; transition:opacity .8s; }
+#bg .img.show{ opacity:1; }
+#bg .veil{ position:absolute; inset:0; background:var(--bg); opacity:.55; }
+
+/* ---- Glass (see-through) cards: --glass = how solid the cards are, 0% = invisible, 100% = solid ---- */
+:root{ --glass:38%; }
+.card,.count div{ background:color-mix(in srgb,var(--card) var(--glass),transparent); -webkit-backdrop-filter:blur(8px) saturate(1.2); backdrop-filter:blur(8px) saturate(1.2); border-color:color-mix(in srgb,var(--line) 70%,transparent); }
+.rsvp input,.rsvp select{ background:color-mix(in srgb,var(--bg) 55%,transparent); }
+
+/* ---- Map picture (tap to open Google Maps) ---- */
+.mapcard{ position:relative; display:block; margin-top:22px; border-radius:22px; overflow:hidden; text-decoration:none; color:var(--ink);
+  border:1.5px solid color-mix(in srgb,var(--line) 70%,transparent); box-shadow:0 6px 18px rgba(38,24,77,.15); }
+.mapcard:focus-visible{ outline:3px solid var(--sun); outline-offset:3px; }
+.mapimg{ display:block; aspect-ratio:16/10; background-size:cover; background-position:center;
+  background-color:#e9e4f7;
+  background-image:
+    linear-gradient(90deg,transparent 48%,rgba(255,255,255,.95) 48% 52%,transparent 52%),
+    linear-gradient(0deg,transparent 30%,rgba(255,255,255,.95) 30% 34%,transparent 34%),
+    linear-gradient(60deg,transparent 60%,rgba(255,255,255,.8) 60% 62%,transparent 62%),
+    linear-gradient(0deg,#cfe7d6 0 18%,transparent 18%),
+    linear-gradient(135deg,#dfe8f7,#efe6f7); }
+.mapimg.has{ background-color:transparent; }
+.mappin{ position:absolute; left:50%; top:42%; transform:translate(-50%,-100%); font-size:38px; line-height:1; filter:drop-shadow(0 4px 4px rgba(0,0,0,.35)); }
+.maplabel{ position:absolute; left:10px; right:10px; bottom:10px; padding:9px 12px; border-radius:14px; font-weight:600; font-size:14px; line-height:1.35; text-align:center;
+  background:color-mix(in srgb,var(--card) 82%,transparent); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+.maplabel small{ display:block; font-weight:400; font-size:12px; color:var(--muted); }
+
+/* ---- Live map (zoom / drag / tap) ---- */
+.mapbox{ margin-top:22px; }
+.mapbox iframe{ display:block; width:100%; height:300px; border:1.5px solid color-mix(in srgb,var(--line) 70%,transparent); border-radius:22px; background:#e9e4f7; box-shadow:0 6px 18px rgba(38,24,77,.15); }
+.mapbox .btn{ width:100%; margin-top:10px; }
 </style>
 </head>
 <body>
+<div id="bg" aria-hidden="true"><div class="img" id="bgImg"></div><div class="veil"></div></div>
 <div class="confetti" id="confetti" aria-hidden="true"></div>
 <main>
   <div class="pin" id="pin" role="note" hidden>
@@ -202,14 +247,22 @@ body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area
     </div>
     <p id="rmsg" role="status"></p>
   </section>
-  <div class="actions">
-    <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Prakit,+Phnom+Penh" target="_blank" rel="noopener">មើលផែនទី<small>Open map</small></a>
-  </div>
+  <section class="mapbox" aria-label="Map">
+    <iframe id="mapFrame" title="Map / ផែនទី" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=11.5643912,104.8930337&amp;z=17&amp;hl=km&amp;output=embed"></iframe>
+    <a class="btn main" id="mapOpen" href="https://maps.app.goo.gl/vk8Fj4wy5gqBMx7u6" target="_blank" rel="noopener">📍 បើកក្នុង Google Maps<small>Open in Google Maps</small></a>
+  </section>
 
   <p class="thanks-box">ក្នុងនាមខ្ញុំ និងក្រុមមេឌៀរនៃប្រាកកេត ខ្ញុំសូមគោរពថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅ ចំពោះវត្តមាន និងពរជ័យដ៏មានតម្លៃរបស់លោក លោកស្រី អ្នកនាង កញ្ញា ក្នុងពិធីខួបកំណើតនេះ។ ខ្ញុំសូមអភ័យទោស ប្រសិនបើមិនបានអញ្ជើញដោយផ្ទាល់ មានការខកខានក្នុងការទទួលរាក់ទាក់ ឬមានកំហុសឆ្គងក្នុងការសរសេរនាម និងងារ។ សូមមេត្តាទទួលនូវការគោរពដ៏ខ្ពង់ខ្ពស់ពីខ្ញុំ។
     <span class="en">On behalf of myself and the Prakit Media team, I would like to express my deepest gratitude for your presence and your valued blessings at this birthday celebration. Please forgive me if I did not invite you in person, if my welcome fell short, or if any name or title is misspelled. Please accept my highest respect.</span></p>
 </main>
 <div id="lb" hidden><button type="button" aria-label="Close">✕</button><img alt=""></div>
+<button id="music" type="button" aria-label="Play music" title="Music">🎵</button>
+<audio id="bgm" loop preload="auto" playsinline>
+  <source src="music/song.mp3" type="audio/mpeg">
+  <source src="music/song.m4a" type="audio/mp4">
+  <source src="music/song.ogg" type="audio/ogg">
+</audio>
 <script>
 (function(){
   var target = new Date('2026-11-03T18:00:00+07:00').getTime();
@@ -305,6 +358,50 @@ body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area
     c.style.animationDelay = (Math.random()*1.2) + 's';
     box.appendChild(c);
   }
+
+  // ---- Background music: put your song in a "music" folder next to index.html, named song.mp3 ----
+  // Browsers block autoplay with sound, so music starts on the guest's first tap/click. The 🎵 button pauses/plays.
+  var bgm = document.getElementById('bgm'), mbtn = document.getElementById('music');
+  var AUTO_START = true;      // true = start on first tap anywhere; false = only when 🎵 is pressed
+  var VOLUME = 0.6;           // 0 to 1
+  var userPaused = false;
+  bgm.volume = VOLUME;
+  function setUI(on){ mbtn.classList.toggle('on', on); mbtn.textContent = on ? '🔊' : '🎵'; mbtn.setAttribute('aria-label', on ? 'Pause music' : 'Play music'); }
+  function playMusic(){ var p = bgm.play(); if(p && p.then){ p.then(function(){ setUI(true); }).catch(function(){ setUI(false); }); } else setUI(true); }
+  mbtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(bgm.paused){ userPaused = false; playMusic(); } else { userPaused = true; bgm.pause(); setUI(false); }
+  });
+  if(AUTO_START){
+    var first = function(){
+      document.removeEventListener('click', first); document.removeEventListener('touchend', first); document.removeEventListener('keydown', first);
+      if(!userPaused && bgm.paused) playMusic();
+    };
+    document.addEventListener('click', first); document.addEventListener('touchend', first); document.addEventListener('keydown', first);
+  }
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ if(!bgm.paused) bgm.pause(); }
+    else if(!userPaused && AUTO_START && bgm.paused && bgm.currentTime > 0) playMusic();
+  });
+  bgm.addEventListener('pause', function(){ if(!document.hidden) setUI(false); });
+
+  // ---- Background photo (blurred): put one picture in the "photos" folder named bg.jpg (or bg.jpeg / bg.png / bg.webp) ----
+  // If no picture is found, soft blurred colour shapes are shown instead.
+  var BG_NAME = 'bg';         // file name without extension
+  var BG_BLUR = 14;           // px, bigger = blurrier
+  var BG_VEIL = 0.55;         // 0 to 1, bigger = fainter picture (easier to read text)
+  var bgImg = document.getElementById('bgImg');
+  bgImg.style.filter = 'blur(' + BG_BLUR + 'px) saturate(1.1)';
+  bgImg.nextElementSibling.style.opacity = BG_VEIL;
+  (function tryBg(k){
+    var exts = ['jpg','jpeg','png','webp','JPG','JPEG','PNG','WEBP'];
+    if(k >= exts.length) return;
+    var src = 'photos/' + BG_NAME + '.' + exts[k], im = new Image();
+    im.onload = function(){ bgImg.style.backgroundImage = 'url("' + src + '")'; bgImg.classList.add('show'); };
+    im.onerror = function(){ tryBg(k + 1); };
+    im.src = src;
+  })(0);
+
 })();
 </script>
 </body>
