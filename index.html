@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="km">
+<html class="locked" lang="km">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -184,10 +184,36 @@ body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area
 #bg.has-img::before,#bg.has-img::after{ opacity:0; }
 #bg .img{ background-repeat:no-repeat; }
 @media (min-aspect-ratio:1/1){ #bg .img{ background-size:auto 100%; } }
+
+/* ---- Cover / open invitation ---- */
+html.locked{ overflow:hidden; }
+html.locked main{ visibility:hidden; }
+#cover{ position:fixed; inset:0; z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  padding:calc(20px + env(safe-area-inset-top,0px)) 22px calc(20px + env(safe-area-inset-bottom,0px)); overflow-y:auto;
+  transition:opacity .8s ease, transform .8s ease; }
+#cover.open{ opacity:0; transform:scale(1.06); pointer-events:none; }
+.cv-top{ margin:0; font-size:15px; color:var(--muted); }
+.cv-top .en{ display:block; font-size:16px; font-style:italic; }
+.cv-photo{ width:min(72vw,340px); aspect-ratio:1/1; margin:16px 0 14px; border-radius:28px; overflow:hidden; border:4px solid #fff;
+  box-shadow:0 14px 34px rgba(38,24,77,.28); background:color-mix(in srgb,var(--card) 60%,transparent); animation:cvfloat 4s ease-in-out infinite; }
+.cv-photo img{ display:block; width:100%; height:100%; object-fit:cover; }
+@keyframes cvfloat{ 50%{ transform:translateY(-6px); } }
+.cv-name{ margin:0 0 18px; font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:clamp(30px,9vw,42px); line-height:1.2; color:var(--pink); }
+#openBtn{ border:0; cursor:pointer; padding:14px 30px; border-radius:999px; background:var(--pink); color:#fff; font:600 17px/1.35 'Noto Sans Khmer',system-ui,sans-serif;
+  box-shadow:0 8px 20px rgba(224,58,124,.4); animation:mpulse 1.8s ease-in-out infinite; }
+#openBtn small{ display:block; font-weight:400; font-size:13px; opacity:.9; }
+#openBtn:focus-visible{ outline:3px solid var(--sun); outline-offset:3px; }
 </style>
 </head>
 <body>
 <div id="bg" aria-hidden="true"><div class="img" id="bgImg"></div><div class="veil"></div></div>
+<div id="cover" role="dialog" aria-label="Invitation cover">
+  <p class="cv-top">អញ្ជើញចូលរួមខួបកំណើត<span class="en">You're invited</span></p>
+  <div class="cv-photo"><img src="photos/cover.jpg" alt="" onerror="this.parentNode.style.display='none'"></div>
+  <p class="cv-name">Phom Bunlai</p>
+  <button id="openBtn" type="button">✉️ បើកធៀបអញ្ជើញ<small>Open Invitation</small></button>
+</div>
+<noscript><style>html.locked main{visibility:visible} #cover{display:none}</style></noscript>
 <div class="confetti" id="confetti" aria-hidden="true"></div>
 <main>
   <div class="pin" id="pin" role="note" hidden>
@@ -415,6 +441,16 @@ body::before{ content:''; position:fixed; inset:0 0 auto 0; height:env(safe-area
     im.src = src;
   })(0);
 
+
+  // ---- Cover: "Open Invitation" button reveals the page and starts the music ----
+  var cover = document.getElementById('cover'), openBtn = document.getElementById('openBtn');
+  openBtn.addEventListener('click', function(){
+    userPaused = false; playMusic();
+    cover.classList.add('open');
+    document.documentElement.classList.remove('locked');
+    window.scrollTo(0, 0);
+    setTimeout(function(){ cover.style.display = 'none'; }, 850);
+  });
 })();
 </script>
 </body>
